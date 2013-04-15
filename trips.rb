@@ -21,4 +21,3 @@ end
 
 
 puts JSON.generate(trips)
-File.open('trips.txt', 'w') {|f| f.write(JSON.generate(trips)) }

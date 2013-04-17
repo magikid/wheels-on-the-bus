@@ -8,6 +8,7 @@ Wheels = Struct.new(:routes, :stop_schedules)
 Route = Struct.new(:id, :name, :stops, :geometry, :vehicles)
 Stop = Struct.new(:id, :name, :lat, :lng)
 Segment = Struct.new(:lat, :lng)
+Vehicle = Struct.new(:id, :lat, :lng, :data)
 
 wheels = Wheels.new
 
@@ -33,15 +34,17 @@ wheels.routes.each do |r|
   doc = Nokogiri::XML(open("http://bustracker.muni.org/InfoPoint/map/GetVehicleXml.ashx?RouteId=#{r.id}"))
   vehicles = doc.css('vehicle').map do |v|
     doc = Nokogiri::HTML(open("http://bustracker.muni.org/InfoPoint/map/GetVehicleHtml.ashx?vehicleid=#{v['name']}"))
-    vehicle = {:id => v['name'], :lat => v['lat'], :lng => v['lng'] }
+    vehicle = Vehicle.new(v['name'], v['lat'], v['lng'])
+    vehicle.data = {}
     doc.css('li').each do |l|
       kv = l.text.split(':')
-      vehicle[kv.first.gsub(/\s+/,"_").strip.downcase.to_sym] = kv.last.strip
+      vehicle.data[kv.first.gsub(/\s+/,"_").strip.downcase.to_sym] = kv.last.strip
     end
     vehicle
   end
   r.vehicles = vehicles
 end
+
 wheels.stop_schedules = wheels.routes.map {|r| r.stops.map {|s| s[:id]}}.flatten.uniq.map do |s|
   doc = Nokogiri::HTML(open("http://bustracker.muni.org/InfoPoint/map/GetStopHtml.ashx?stopid=#{s}"))
   sched = {:stop_id => s}

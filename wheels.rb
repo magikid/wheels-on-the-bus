@@ -9,6 +9,7 @@ Route = Struct.new(:id, :name, :stops, :geometry, :vehicles)
 Stop = Struct.new(:id, :name, :lat, :lng)
 Segment = Struct.new(:lat, :lng)
 Vehicle = Struct.new(:id, :lat, :lng, :data)
+StopSchedule = Struct.new(:stop_id, :departures)
 
 wheels = Wheels.new
 
@@ -45,10 +46,10 @@ wheels.routes.each do |r|
   r.vehicles = vehicles
 end
 
-wheels.stop_schedules = wheels.routes.map {|r| r.stops.map {|s| s[:id]}}.flatten.uniq.map do |s|
+wheels.stop_schedules = wheels.routes.map {|r| r.stops.map {|s| s.id}}.flatten.uniq.map do |s|
   doc = Nokogiri::HTML(open("http://bustracker.muni.org/InfoPoint/map/GetStopHtml.ashx?stopid=#{s}"))
-  sched = {:stop_id => s}
-  sched[:departures] = doc.css('.oddDepartureGroup,.evenDepartureGroup').map do |d|
+  sched = StopSchedule.new(s)
+  sched.departures = doc.css('.oddDepartureGroup,.evenDepartureGroup').map do |d|
     td = d.css('td')
     {:route => td[0].text, :destination => td[1].text, :sdt => td[2].text, :edt => td[3].text}
   end

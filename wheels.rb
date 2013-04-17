@@ -6,6 +6,7 @@ require 'json'
 
 Wheels = Struct.new(:routes, :stop_schedules)
 Route = Struct.new(:id, :name, :stops, :geometry, :vehicles)
+Stop = Struct.new(:id, :name, :lat, :lng)
 
 wheels = Wheels.new
 
@@ -15,10 +16,9 @@ wheels.routes = doc.css('.routeNameListEntry').map { |l| Route.new(l['routeid'],
 
 wheels.routes.each do |r|
   doc = Nokogiri::XML(open("http://bustracker.muni.org/InfoPoint/map/GetRouteXml.ashx?routeNumber=#{r.id}"))
-  stops = doc.css('stop').map do |s|
-    stop = {:id => s['html'], :name => s['label'], :lat => s['lat'], :lng => s['lng']}
-  end
-  r.stops = stops
+
+  r.stops = doc.css('stop').map { |s| Stop.new(s['html'], s['label'], s['lat'], s['lng']) }
+
   trace_url = doc.css('info').first['trace_kml_url']
   doc = Nokogiri::XML(open(trace_url))
   r.geometry = doc.css('coordinates').map do |line|

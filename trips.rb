@@ -9,14 +9,21 @@ doc = Nokogiri::HTML(open('http://bustracker.muni.org/InfoPoint/noscript.aspx'))
 wheels[:routes] = doc.css('.routeNameListEntry').map {|l| {:id => l['routeid'], :name => l.content}}
 
 trips = []
-i = 0 #This is for generating the trip id
+
 wheels[:routes].each do |r|
-	trips.push({
-		:route_id => r[:id],
-		:service_id => 1, #This assumes that all routes run M-F.  1 for M-F, 2 for Saturday, 3 for Sunday
-		:trip_id => i, #dataset unique
-	})
-	i+=1
+  if r[:id] != 102
+    trips.push({
+      :route_id => r[:id],
+      :service_id => 4, #All the routes run every day, except 102
+      :trip_id => r[:id]
+    })
+  else
+    trips.push({
+      :route_id => r[:id],
+      :service_id => 1, #Route 102 only runs M-F
+      :trip_id => r[:id]
+    })    
+  end
 end
 
 

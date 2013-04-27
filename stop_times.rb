@@ -19,16 +19,13 @@ wheels[:routes] = doc.css('.routeNameListEntry').map {|l| {:id => l['routeid'], 
 stops_info = []
 
 wheels[:routes].each do |r|
-  puts "Route: #{r[:id]}"
   stop_info = Nokogiri::XML(open("http://bustracker.muni.org/InfoPoint/map/GetRouteXml.ashx?routeNumber=#{r[:id]}"))
   schedule_info = Nokogiri::HTML(open("http://www.muni.org/Departments/transit/PeopleMover/Route%202012%20Schedules%20HTML/#{r[:id].rjust(3, '0')}.htm"))
   stops = stop_info.css('stop').map do |s|
-    stop = {:id => s['html'], :name => s['label']}
+    stop = {:id => s['html'], :name => s['label'].force_encoding('UTF-8').gsub(/[[:space:]]/, ' ').strip}
   end
   
-  main_stops = schedule_info.css('table tr')[3].css('td').map {|s| s.text.strip.gsub(/&/, 'and') }
-  puts "Number stops: #{stops.length}"
-  puts "Number main stops: #{main_stops.length}"
+  main_stops = schedule_info.css('table tr')[3].css('td').map {|s| s.text.force_encoding('UTF-8').gsub(/&/, 'and').gsub(/[[:space:]]/, ' ').strip }
   main_stops.each do |m|
     stops.each do |n|
       if n[:name].include? m

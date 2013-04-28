@@ -14,14 +14,24 @@ wheels[:routes].each do |r|
   if r[:id] != 102
     trips.push({
       :route_id => r[:id],
-      :service_id => 4, #All the routes run every day, except 102
-      :trip_id => r[:id]
+      :service_id => 1 #All the routes run every day, except 102
+      :trip_id => r[:id].to_s + "W"
     })
-  else
+		trips.push({
+			:route_id => r[:id],
+			:service_id => 2
+			:trip_id => r[:id].to_s + "Sa"
+		}) 
+		trips.push({
+			:route_id => r[:id],
+			:service_id => 3
+			:trip_id => r[:id].to_s + "Su"
+		})
+	else
     trips.push({
       :route_id => r[:id],
       :service_id => 1, #Route 102 only runs M-F
-      :trip_id => r[:id]
+      :trip_id => r[:id].to_s + "W"
     })    
   end
 end

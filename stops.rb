@@ -2,7 +2,7 @@
 
 require 'nokogiri'
 require 'open-uri'
-require 'json'
+require 'csv'
 
 wheels = {:routes => [], :stop_schedules => []}
 doc = Nokogiri::HTML(open('http://bustracker.muni.org/InfoPoint/noscript.aspx'))
@@ -37,4 +37,9 @@ wheels[:routes].each do |r|
   end
 end
 
-puts JSON.generate(stops)
+CSV.open("stops.csv", "wb"){|csv|
+  csv << ["stop_id", "stop_name", "stop_lat", "stop_lon"]
+  stops.each{|b|
+    csv << b.values
+  }
+}

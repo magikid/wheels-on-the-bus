@@ -24,7 +24,6 @@ class Busses
     @main_stops = @schedules.css('table tr')[3].css('td').map {|s|
       s.text.force_encoding('UTF-8').gsub(/&/, 'and').gsub(/[[:space:]]+/, ' ').strip
     }
-    @final_out = [@routeid]
   end
   
   

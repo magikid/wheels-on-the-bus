@@ -16,7 +16,7 @@ agency = [{
 	:agency_fare_url => "http://www.muni.org/Departments/transit/PeopleMover/Pages/fareandpass.aspx",
 }]
 
-CSV.open("agency.csv", "wb"){|csv|
+CSV.open("CSVs/agency.csv", "wb"){|csv|
   csv << ["agency_id", "agency_name", "agency_url", "agency_timezone", "agency_lang", "agency_phone", "agency_fare_url"]
   agency.each{|b|
     csv << b.values

@@ -47,11 +47,11 @@ class Busses
     (separating_rows[0]+1..separating_rows[1]-1).each{|j|
       (0..@main_stops.length-1).each_with_index{|i,index|
         stop_times.push({
-          :stop_sequence => index+1,
+          :trip_id => @routeid.to_s + "W",
           :arrival_time => @schedules.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, ''),
           :departure_time => @schedules.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, ''),
-          :trip_id => @routeid.to_s + "W",
           :stop_id => find_stop_id(index % @main_stops.length),
+          :stop_sequence => index+1,
         })
       }
     }

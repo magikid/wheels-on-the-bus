@@ -1,2 +1,3 @@
 /nppBackup
 *.csv
+/transitfeed-1.2.12/transitfeed/*.pyc

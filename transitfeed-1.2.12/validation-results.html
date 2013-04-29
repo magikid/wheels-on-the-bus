@@ -45,10 +45,11 @@ During the upcoming service dates Mon Apr 29 to Thu Jun 27:
 <br>
 <span class="fail">Found these problems:</span>
 <table class="count_outside">
-<tr><td><span class="fail">7058 errors</span></td><td><span class="fail">1110 warnings</span></td></tr>
+<tr><td><span class="fail">4842 errors</span></td><td><span class="fail">1113 warnings</span></td></tr>
 <tr><td>
 <table><tr><td>440</td><td><a href="#ErrorDuplicateID">Duplicate IDs</a></td></tr>
-<tr><td>6618</td><td><a href="#ErrorInvalidValue">Invalid Values</a></td></tr>
+<tr><td>1516</td><td><a href="#ErrorInvalidValue">Invalid Values</a></td></tr>
+<tr><td>2886</td><td><a href="#ErrorOtherProblem">Other Problems</a></td></tr>
 </table>
 </td>
 <td>
@@ -56,6 +57,7 @@ During the upcoming service dates Mon Apr 29 to Thu Jun 27:
 <tr><td>1</td><td><a href="#WarningNoServiceExceptions">No Service Exceptions</a></td></tr>
 <tr><td>26</td><td><a href="#WarningOtherProblem">Other Problems</a></td></tr>
 <tr><td>2</td><td><a href="#WarningStopsTooClose">Stops Too Closes</a></td></tr>
+<tr><td>3</td><td><a href="#WarningTooFastTravel">Too Fast Travels</a></td></tr>
 <tr><td>1067</td><td><a href="#WarningUnusedStop">Unused Stops</a></td></tr>
 </table>
 </td>
@@ -84,27 +86,34 @@ During the upcoming service dates Mon Apr 29 to Thu Jun 27:
 <br></li>
 <li>and 435 more of this type.</ul>
 <h4 class="issueHeader"><a name="ErrorInvalidValue">Invalid Value</a></h4><ul>
-<li><div class="problem">Invalid value 6:10 in field <code>arrival_time</code></div>in line 2 of <code>stop_times.txt</code><br>
-<table class="dump"><tr><th>trip_id</th><th class="problem">arrival_time</th><th>departure_time</th><th>stop_id</th><th>stop_sequence</th><th>stop_headsign</th><th>pickup_type</th><th>drop_off_type</th><th>shape_dist_traveled</th></tr>
-<tr><td>1W</td><td class="problem">6:10</td><td>6:10</td><td>2759</td><td>1</td><td>None</td><td>None</td><td>None</td><td>None</td></tr></table>
+<li><div class="problem">Invalid value 0 in field <code>stop_id</code><br>This value wasn't defined in stops.txt</div>in line 11 of <code>stop_times.txt</code><br>
+<table class="dump"><tr><th>trip_id</th><th>arrival_time</th><th>departure_time</th><th class="problem">stop_id</th><th>stop_sequence</th><th>stop_headsign</th><th>pickup_type</th><th>drop_off_type</th><th>shape_dist_traveled</th></tr>
+<tr><td>1W</td><td>07:04:00</td><td>07:04:00</td><td class="problem">0</td><td>10</td><td>None</td><td>None</td><td>None</td><td>None</td></tr></table>
 <br></li>
-<li><div class="problem">Invalid value 6:10 in field <code>departure_time</code></div>in line 2 of <code>stop_times.txt</code><br>
-<table class="dump"><tr><th>trip_id</th><th>arrival_time</th><th class="problem">departure_time</th><th>stop_id</th><th>stop_sequence</th><th>stop_headsign</th><th>pickup_type</th><th>drop_off_type</th><th>shape_dist_traveled</th></tr>
-<tr><td>1W</td><td>6:10</td><td class="problem">6:10</td><td>2759</td><td>1</td><td>None</td><td>None</td><td>None</td><td>None</td></tr></table>
+<li><div class="problem">Invalid value 0 in field <code>stop_id</code><br>This value wasn't defined in stops.txt</div>in line 23 of <code>stop_times.txt</code><br>
+<table class="dump"><tr><th>trip_id</th><th>arrival_time</th><th>departure_time</th><th class="problem">stop_id</th><th>stop_sequence</th><th>stop_headsign</th><th>pickup_type</th><th>drop_off_type</th><th>shape_dist_traveled</th></tr>
+<tr><td>1W</td><td>08:05:00</td><td>08:05:00</td><td class="problem">0</td><td>10</td><td>None</td><td>None</td><td>None</td><td>None</td></tr></table>
 <br></li>
-<li><div class="problem">Invalid value 6:15 in field <code>arrival_time</code></div>in line 3 of <code>stop_times.txt</code><br>
-<table class="dump"><tr><th>trip_id</th><th class="problem">arrival_time</th><th>departure_time</th><th>stop_id</th><th>stop_sequence</th><th>stop_headsign</th><th>pickup_type</th><th>drop_off_type</th><th>shape_dist_traveled</th></tr>
-<tr><td>1W</td><td class="problem">6:15</td><td>6:15</td><td>1437</td><td>2</td><td>None</td><td>None</td><td>None</td><td>None</td></tr></table>
+<li><div class="problem">Invalid value 0 in field <code>stop_id</code><br>This value wasn't defined in stops.txt</div>in line 35 of <code>stop_times.txt</code><br>
+<table class="dump"><tr><th>trip_id</th><th>arrival_time</th><th>departure_time</th><th class="problem">stop_id</th><th>stop_sequence</th><th>stop_headsign</th><th>pickup_type</th><th>drop_off_type</th><th>shape_dist_traveled</th></tr>
+<tr><td>1W</td><td>09:04:00</td><td>09:04:00</td><td class="problem">0</td><td>10</td><td>None</td><td>None</td><td>None</td><td>None</td></tr></table>
 <br></li>
-<li><div class="problem">Invalid value 6:15 in field <code>departure_time</code></div>in line 3 of <code>stop_times.txt</code><br>
-<table class="dump"><tr><th>trip_id</th><th>arrival_time</th><th class="problem">departure_time</th><th>stop_id</th><th>stop_sequence</th><th>stop_headsign</th><th>pickup_type</th><th>drop_off_type</th><th>shape_dist_traveled</th></tr>
-<tr><td>1W</td><td>6:15</td><td class="problem">6:15</td><td>1437</td><td>2</td><td>None</td><td>None</td><td>None</td><td>None</td></tr></table>
+<li><div class="problem">Invalid value 0 in field <code>stop_id</code><br>This value wasn't defined in stops.txt</div>in line 47 of <code>stop_times.txt</code><br>
+<table class="dump"><tr><th>trip_id</th><th>arrival_time</th><th>departure_time</th><th class="problem">stop_id</th><th>stop_sequence</th><th>stop_headsign</th><th>pickup_type</th><th>drop_off_type</th><th>shape_dist_traveled</th></tr>
+<tr><td>1W</td><td>10:04:00</td><td>10:04:00</td><td class="problem">0</td><td>10</td><td>None</td><td>None</td><td>None</td><td>None</td></tr></table>
 <br></li>
-<li><div class="problem">Invalid value 6:23 in field <code>arrival_time</code></div>in line 4 of <code>stop_times.txt</code><br>
-<table class="dump"><tr><th>trip_id</th><th class="problem">arrival_time</th><th>departure_time</th><th>stop_id</th><th>stop_sequence</th><th>stop_headsign</th><th>pickup_type</th><th>drop_off_type</th><th>shape_dist_traveled</th></tr>
-<tr><td>1W</td><td class="problem">6:23</td><td>6:23</td><td>1481</td><td>3</td><td>None</td><td>None</td><td>None</td><td>None</td></tr></table>
+<li><div class="problem">Invalid value 0 in field <code>stop_id</code><br>This value wasn't defined in stops.txt</div>in line 59 of <code>stop_times.txt</code><br>
+<table class="dump"><tr><th>trip_id</th><th>arrival_time</th><th>departure_time</th><th class="problem">stop_id</th><th>stop_sequence</th><th>stop_headsign</th><th>pickup_type</th><th>drop_off_type</th><th>shape_dist_traveled</th></tr>
+<tr><td>1W</td><td>11:04:00</td><td>11:04:00</td><td class="problem">0</td><td>10</td><td>None</td><td>None</td><td>None</td><td>None</td></tr></table>
 <br></li>
-<li>and 6613 more of this type.</ul>
+<li>and 1511 more of this type.</ul>
+<h4 class="issueHeader"><a name="ErrorOtherProblem">Other Problem</a></h4><ul>
+<li><div class="problem">Timetravel detected! Arrival time is before previous departure at sequence number 2 in trip 102W</div><br></li>
+<li><div class="problem">Timetravel detected! Arrival time is before previous departure at sequence number 2 in trip 102W</div><br></li>
+<li><div class="problem">Timetravel detected! Arrival time is before previous departure at sequence number 2 in trip 102W</div><br></li>
+<li><div class="problem">Timetravel detected! Arrival time is before previous departure at sequence number 2 in trip 102W</div><br></li>
+<li><div class="problem">Timetravel detected! Arrival time is before previous departure at sequence number 3 in trip 102W</div><br></li>
+<li>and 2881 more of this type.</ul>
 <h3 class="issueHeader">Warnings:</h3><h4 class="issueHeader"><a name="WarningInvalidValue">Invalid Value</a></h4><ul>
 <li><div class="problem">Invalid value 1 - CROSSTOWN in field <code>route_long_name</code><br>route_long_name shouldn't contain the route_short_name value, as both fields are often displayed side-by-side.</div>in line 2 of <code>routes.txt</code><br>
 <table class="dump"><tr><th>route_id</th><th>route_short_name</th><th class="problem">route_long_name</th><th>route_type</th></tr>
@@ -141,6 +150,11 @@ During the upcoming service dates Mon Apr 29 to Thu Jun 27:
 <li><div class="problem">The stops "DEBARR and MULDOON-GCI WNW" (ID 1697) and "DEBARR and MULDOON" (ID 2759) are 0.00m apart and probably represent the same location.</div><br></li>
 <li><div class="problem">The stops "A STREET and 36TH AVE" (ID 1478) and "36TH AVE and A STREET" (ID 1461) are 0.11m apart and probably represent the same location.</div><br></li>
 </ul>
+<h4 class="issueHeader"><a name="WarningTooFastTravel">Too Fast Travel</a></h4><ul>
+<li><div class="problem">High speed travel detected in trip 102W: VOYLES and BILL STEPHENS to EAGLE RIVER TRANSIT CENTER. 11547 meters in 360 seconds. (115 km/h).</div><br></li>
+<li><div class="problem">High speed travel detected in trip 45W: BRAGAW and MT. VIEW to AK NATIVE MED CENTER. 4713 meters in 60 seconds. (283 km/h).</div><br></li>
+<li><div class="problem">High speed travel detected in trip 1W: DIMOND CENTER to LAKE OTIS and DOWLING. 3197 meters in 60 seconds. (192 km/h).</div><br></li>
+</ul>
 <h4 class="issueHeader"><a name="WarningUnusedStop">Unused Stop</a></h4><ul>
 <li><div class="problem">3RD AVENUE and EAGLE WNW (ID 2302) isn't used in any trips</div><br></li>
 <li><div class="problem">43RD AVENUE and CHESS WNW (ID 1854) isn't used in any trips</div><br></li>
@@ -151,7 +165,7 @@ During the upcoming service dates Mon Apr 29 to Thu Jun 27:
 
 <div class="footer">
 Generated by <a href="http://code.google.com/p/googletransitdatafeed/wiki/FeedValidator">
-FeedValidator</a> version 1.2.12 on April 29, 2013 at 02:08 AM AKDT.
+FeedValidator</a> version 1.2.12 on April 29, 2013 at 03:17 AM AKDT.
 </div>
 </body>
 </html>

@@ -1,44 +1,14 @@
 # THE WHEELS ON THE BUS
 
-Awful code to scrape transit data on the [Anchorage People Mover website](http://bustracker.muni.org/InfoPoint/) into something useful.
+Code that scrapes the transit data on the [Anchorage People Mover website](http://bustracker.muni.org/InfoPoint/) into [GTFS format](https://developers.google.com/transit/gtfs/reference) for upload to Google Transit.  You will need both python and ruby installed for this.  If the feedvalidator.py throws an error about Time Zones, ```run easy_install pytz```
 
 ## Use it
 
     bundle install
-    ./wheels.rb > awesome.json
-
-## What's in it
-
-    routes
-        id
-        name
-        stops
-            id
-            name
-            lat
-            lng
-        geometry
-            lat
-            lng
-        vehicles
-            id
-            lat
-            lng
-            status
-            last_stop
-            direction
-    stop_schedules
-        stop_id
-        departures
-            route
-            destination
-            sdt
-            edt
+    ruby generate_CSVs.rb
 
 ## Other thoughts
-
-The vehicles and stop schedule information are "live" so if you run this code when the buses aren't running you won't get any data. I don't do anything to account for this...the code probably explodes.
-
-This code sucks.
+	
+The generate_CSVs.rb file will call all of the individual ruby files and output the CSVs into the CSVs/ folder.  After that, it will call the feedvalidator.py script to validate the CSVs.  The validator script will output an HTML file (validation-results.html) into the transitfeed-1.2.12 folder.  Pull that up in a browser to see what's wrong with the CSV files.
 
 Pull requests welcome.

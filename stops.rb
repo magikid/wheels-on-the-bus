@@ -1,5 +1,11 @@
 #!/usr/bin/env ruby
 
+=begin
+
+TODO: This method of getting the stops generates a lot of duplicates.  Need to clean out the dupes before outputting to the CSV.
+
+=end
+
 require 'nokogiri'
 require 'open-uri'
 require 'csv'
@@ -22,7 +28,6 @@ wheels[:routes].each do |r|
     end
   end
 end
-
 
 stops = []
 

@@ -1,5 +1,12 @@
 #!/usr/bin/env ruby
 
+=begin
+
+TODO: Fix the route that is named differently across the two sites.  It's currently got a stop_id of 0 which is no good for the CSV.
+TODO: Figure out which times on the schedule are bold because those are PM times and need to be set as such.
+
+=end
+
 #foreign keys
 # trip_id (it's the route id)
 # arrival_time
@@ -48,8 +55,8 @@ class Busses
       (0..@main_stops.length-1).each_with_index{|i,index|
         stop_times.push({
           :trip_id => @routeid.to_s + "W",
-          :arrival_time => @schedules.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, ''),
-          :departure_time => @schedules.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, ''),
+          :arrival_time => @schedules.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, '').rjust(5, '0') + ":00",
+          :departure_time => @schedules.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, '').rjust(5, '0') + ":00",
           :stop_id => find_stop_id(index % @main_stops.length),
           :stop_sequence => index+1,
         })

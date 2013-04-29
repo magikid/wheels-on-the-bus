@@ -1,5 +1,11 @@
 #!/usr/bin/env ruby
 
+=begin
+
+TODO: route_long_name shouldn't have any part of route_short_name.
+
+=end
+
 require 'nokogiri'
 require 'open-uri'
 require 'csv'

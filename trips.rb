@@ -37,7 +37,7 @@ wheels[:routes].each do |r|
 end
 
 
-CSV.open("CSVs/trips.csv", "wb"){|csv|
+CSV.open("CSVs/trips.txt", "wb"){|csv|
   csv << ["route_id", "service_id", "trip_id"]
   trips.each{|b|
     csv << b.values

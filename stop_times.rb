@@ -78,7 +78,7 @@ wheels[:routes].each{|r|
   stop_times.push(b.read_stop_times)
 }
 
-CSV.open("CSVs/stop_times.csv", "wb"){|csv|
+CSV.open("CSVs/stop_times.txt", "wb"){|csv|
   csv << ["trip_id", "arrival_time", "departure_time", "stop_id", "stop_sequence"]
   stop_times.each{|b|
     b.map{|c|

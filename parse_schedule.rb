@@ -17,8 +17,42 @@ class Busses
     }
   end
 
-  def route(route_number)
-    return nil
+  def route(route_number, direction)
+    direction=0
+    route_number=1
+    schedule = Nokogiri::HTML(open("http://www.muni.org/Departments/transit/PeopleMover/Route%202012%20Schedules%20HTML/#{"1".to_s.rjust(3, '0')}.htm"))
+    
+    #This finds the breaks in the page that separates the weekday from Sat from Sun schedules
+    separating_rows = []
+    schedule.css('table tr').each_with_index{|r,index|
+      if r.css('td')[0].text == "Weekday" or r.css('td')[0].text == "Saturday" or r.css('td')[0].text == "Sunday"
+        separating_rows.push(index)
+      end
+    }
+
+    #This makes sure that there are enough elements in the separating_rows array
+    if separating_rows.length < 3
+      separating_rows.push(schedule.css('table tr').length-1)
+    end
+
+    #TODO: Figure out why stop_times[@mainstops[route_number][i]] is coming up as a nil instead of an array.
+    stop_times = {}
+    @mainstops.each_value{ |value|
+      stop_times[value] = []
+    }
+    Range.new(separating_rows[0]+1, separating_rows[1]-1).each{|j|
+      if direction==0
+        0.upto((@mainstops[route_number].length/2)-1).each{|i|
+          stop_times[@mainstops[route_number][i]].push(schedule.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, '').rjust(5, '0') + ":00")
+        }
+      elsif direction==1
+        ((@mainstops[route_number].length/2)-1).upto(@mainstops.length-1).each{|i|
+          stop_times[@mainstops[route_number][i]].push(schedule.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, '').rjust(5, '0') + ":00")
+        }        
+      end
+    }    
+
+    return stop_times
   end
 
   def isroute?(route_number)
@@ -29,13 +63,22 @@ class Busses
     end
   end
 
-  def ismainstop?(stop_name)
-    @mainstops.each{|m|
-      if m.include? stop_name
-        return true
+  def ismainstop?(stop_name, *p)
+    stops_returned = []
+
+    if p.length == 1
+      if @mainstops[p[0]].include? stop_name
+        stops_returned.push(p[0])
       end
-    }
-    #return false
+    else
+      @mainstops.each{|key,value|
+        if value.include? stop_name
+          stops_returned.push(key)
+        end
+      }
+    end
+
+    return stops_returned
   end
   
   def all_routes

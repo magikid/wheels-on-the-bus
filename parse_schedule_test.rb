@@ -25,7 +25,7 @@ class WheelsTesting < Test::Unit::TestCase
 		should "have schedule for route 1, westbound" do
 			assert_equal 6, @bus.route(1, 0).keys.length
 			assert_equal ["DEBARR and MULDOON", "BAXTER and NORTHERN LIGHTS", "AK NATIVE MED CENTER", "PROVIDENCE and ALUMNI", "LAKE OTIS and DOWLING", "DIMOND CENTER"], @bus.route(1, 0).keys
-			assert_equal "06:10:00", @bus.route(1, 0)
+			assert_equal "06:10:00", @bus.route(1, 0)["DEBARR and MULDOON"][0]
 		end
 	end
 end

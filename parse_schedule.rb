@@ -18,8 +18,6 @@ class Busses
   end
 
   def route(route_number, direction)
-    direction=0
-    route_number=1
     schedule = Nokogiri::HTML(open("http://www.muni.org/Departments/transit/PeopleMover/Route%202012%20Schedules%20HTML/#{"1".to_s.rjust(3, '0')}.htm"))
     
     #This finds the breaks in the page that separates the weekday from Sat from Sun schedules
@@ -36,23 +34,24 @@ class Busses
     end
 
     #TODO: Figure out why stop_times[@mainstops[route_number][i]] is coming up as a nil instead of an array.
-    stop_times = {}
-    @mainstops.each_value{ |value|
-      stop_times[value] = []
+    stop_times = Hash.new { |hash, key| hash[key] = [] }
+    @mainstops[route_number].each{ |value|
+      stop_times[value]
     }
-    Range.new(separating_rows[0]+1, separating_rows[1]-1).each{|j|
+
+    Range.new(separating_rows[0]+1, separating_rows[1]-1).each{ |j|
       if direction==0
-        0.upto((@mainstops[route_number].length/2)-1).each{|i|
+        0.upto((@mainstops[route_number].length/2)-1).each{ |i|
           stop_times[@mainstops[route_number][i]].push(schedule.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, '').rjust(5, '0') + ":00")
         }
       elsif direction==1
-        ((@mainstops[route_number].length/2)-1).upto(@mainstops.length-1).each{|i|
+        ((@mainstops[route_number].length/2)-1).upto(@mainstops.length-1).each{ |i|
           stop_times[@mainstops[route_number][i]].push(schedule.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, '').rjust(5, '0') + ":00")
-        }        
+        }
       end
     }    
 
-    return stop_times
+    return stop_times.delete_if{ |key, value| value == [] }
   end
 
   def isroute?(route_number)

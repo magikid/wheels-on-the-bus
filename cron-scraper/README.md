@@ -5,7 +5,7 @@
 
 ## Use it
     bundle install
-    whenever --cron-update
+    whenever --update-crontab
 
 ## Shutdown
 If you don't shut it down it will keep going and going and going .... 

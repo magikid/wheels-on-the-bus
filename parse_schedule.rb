@@ -1,6 +1,12 @@
 require 'nokogiri'
 require 'open-uri'
 
+=begin
+  
+TODO: Figure out how to work out M-F/Sa/Su into this.  It currently only does M-F.
+  
+=end
+
 class Busses
   
   def initialize()
@@ -33,24 +39,31 @@ class Busses
       separating_rows.push(schedule.css('table tr').length-1)
     end
 
-    #TODO: Figure out why stop_times[@mainstops[route_number][i]] is coming up as a nil instead of an array.
+    #This sets the default value for new hash keys of an array.  The loops through the mainstops to create them all.
     stop_times = Hash.new { |hash, key| hash[key] = [] }
     @mainstops[route_number].each{ |value|
       stop_times[value]
     }
 
+    #This is the tricky bit that grabs the times for each stop.
+    #Only grabs weekday times right now hence separating_rows[0] and [1], the other times are in the rest of the separating_row elements.
     Range.new(separating_rows[0]+1, separating_rows[1]-1).each{ |j|
+      #Direction==0 means the left side of the schedule on the page.
       if direction==0
         0.upto((@mainstops[route_number].length/2)-1).each{ |i|
+          #This grabs the time, forces UTF-8, gets rid of whitespace and junk, then formats it like 00:00:00
           stop_times[@mainstops[route_number][i]].push(schedule.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, '').rjust(5, '0') + ":00")
         }
+      #Direction==1 means the right side of the schedule on the page.
       elsif direction==1
         ((@mainstops[route_number].length/2)-1).upto(@mainstops.length-1).each{ |i|
+          #This grabs the time, forces UTF-8, gets rid of whitespace and junk, then formats it like 00:00:00
           stop_times[@mainstops[route_number][i]].push(schedule.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, '').rjust(5, '0') + ":00")
         }
       end
     }    
 
+    #Since only one direction can be specified, I've got 2x as many elements in the hash.  This gets rid of the empty ones.
     return stop_times.delete_if{ |key, value| value == [] }
   end
 
@@ -81,7 +94,9 @@ class Busses
   end
   
   def all_routes
-    return nil
+    allroutes = {}
+
+    return allroutes
   end
 
 end

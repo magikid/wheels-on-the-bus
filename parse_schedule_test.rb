@@ -27,5 +27,9 @@ class WheelsTesting < Test::Unit::TestCase
 			assert_equal ["DEBARR and MULDOON", "BAXTER and NORTHERN LIGHTS", "AK NATIVE MED CENTER", "PROVIDENCE and ALUMNI", "LAKE OTIS and DOWLING", "DIMOND CENTER"], @bus.route(1, 0).keys
 			assert_equal "06:10:00", @bus.route(1, 0)["DEBARR and MULDOON"][0]
 		end
+
+		should "have all routes in the all_routes method" do
+
+		end
 	end
 end

@@ -29,7 +29,7 @@ class WheelsTesting < Test::Unit::TestCase
 		end
 
 		should "have all routes in the all_routes method" do
-
+			assert_equal 14, @bus.all_routes.keys.length
 		end
 	end
 end

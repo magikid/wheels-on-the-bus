@@ -95,6 +95,9 @@ class Busses
   
   def all_routes
     allroutes = {}
+    @routes.each{|r|
+      allroutes[r] = nil
+    }
 
     return allroutes
   end

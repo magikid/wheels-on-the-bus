@@ -28,6 +28,10 @@ class WheelsTesting < Test::Unit::TestCase
 			assert_equal "06:10:00", @bus.route(1, 0)["DEBARR and MULDOON"][0]
 		end
 
+		should "have schedule for route 1, eastbound" do
+			assert_equal 6, @bus.route(1, 1).keys.length
+		end
+
 		should "have all routes in the all_routes method" do
 			assert_equal 14, @bus.all_routes.keys.length
 		end

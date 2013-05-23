@@ -24,7 +24,7 @@ class WheelsTesting < Test::Unit::TestCase
 
 		should "have schedule for route 1, westbound" do
 			assert_equal 6, @bus.route(1, 0).keys.length
-			assert_equal ["DEBARR and MULDOON", "BAXTER and NORTHERN LIGHTS", "AK NATIVE MED CENTER", "PROVIDENCE and ALUMNI", "LAKE OTIS and DOWLING", "DIMOND CENTER"], @bus.route(1, 0).keys
+			assert_equal @bus.route(1, 0).keys, ["DEBARR and MULDOON", "BAXTER and NORTHERN LIGHTS", "AK NATIVE MED CENTER", "PROVIDENCE and ALUMNI", "LAKE OTIS and DOWLING", "DIMOND CENTER"]
 			assert_equal "06:10:00", @bus.route(1, 0)["DEBARR and MULDOON"][0]
 		end
 
@@ -34,6 +34,12 @@ class WheelsTesting < Test::Unit::TestCase
 
 		should "have all routes in the all_routes method" do
 			assert_equal 14, @bus.all_routes.keys.length
+			assert_equal [1,2,3,7,8,9,13,14,15,36,45,60,75,102], @bus.all_routes.keys
+		end
+
+		should "have Saturday schedule for route 13" do
+			assert_equal @bus.route(13,0,"Saturday").keys.length, 8
+			#assert_equal @bus.route(13,0,"Saturday")["DOWNTOWN TRANSIT CENTER"][0], "08:20:00"
 		end
 	end
 end

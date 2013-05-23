@@ -4,17 +4,20 @@ require 'open-uri'
 =begin
   
 TODO: Figure out how to work out M-F/Sa/Su into this.  It currently only does M-F.
+      Maybe if I rework add in an extra argument to route that isn't required.
+
+TODO: Convert all the times to 24h instead of AM/PM
   
 =end
 
 class Busses
   
   def initialize()
-    @routes,@mainstops = [],{}
+    @routes,@mainstops = {},{}
     Nokogiri::HTML(open('http://bustracker.muni.org/InfoPoint/noscript.aspx')).css('a.routeNameListEntry').each{|r|
-      @routes.push(r['routeid'].force_encoding('UTF-8').to_i)
+      @routes[r['routeid'].force_encoding('UTF-8').to_i] = r.text
     }
-    @routes.each{|r|
+    @routes.keys.each{|r|
       temp_sched = []
       Nokogiri::HTML(open("http://www.muni.org/Departments/transit/PeopleMover/Route%202012%20Schedules%20HTML/#{r.to_s.rjust(3, '0')}.htm")).css('table tr')[3].css('td').map {|s|
         temp_sched.push(s.text.force_encoding('UTF-8').gsub(/&/, 'and').gsub(/[[:space:]]+/, ' ').strip)
@@ -23,7 +26,7 @@ class Busses
     }
   end
 
-  def route(route_number, direction)
+  def route(route_number, direction, part_of_week="Weekday")
     schedule = Nokogiri::HTML(open("http://www.muni.org/Departments/transit/PeopleMover/Route%202012%20Schedules%20HTML/#{"1".to_s.rjust(3, '0')}.htm"))
     
     #This finds the breaks in the page that separates the weekday from Sat from Sun schedules
@@ -47,7 +50,15 @@ class Busses
 
     #This is the tricky bit that grabs the times for each stop.
     #Only grabs weekday times right now hence separating_rows[0] and [1], the other times are in the rest of the separating_row elements.
-    Range.new(separating_rows[0]+1, separating_rows[1]-1).each{ |j|
+    if part_of_week == "Weekday"
+      first_row = 0
+    elsif part_of_week == "Saturday"
+      first_row = 1
+    elsif part_of_week == "Sunday"
+      first_row = 2
+    end
+      
+    Range.new(separating_rows[first_row]+1, separating_rows[first_row+1]-1).each{ |j|
       #Direction==0 means the left side of the schedule on the page.
       if direction==0
         0.upto((@mainstops[route_number].length/2)-1).each{ |i|
@@ -70,7 +81,7 @@ class Busses
   end
 
   def isroute?(route_number)
-    if @routes.include? route_number
+    if @routes.keys.include? route_number
       return true
     else
       return false
@@ -96,14 +107,7 @@ class Busses
   end
   
   def all_routes
-    allroutes = {}
-    @routes.each{|r|
-      allroutes[r] = nil
-    }
-
-    return allroutes
+    return @routes
   end
 
 end
-
-socrata_url = "http://opendata.socrata.com/resource/m9cr-ry5j.json"

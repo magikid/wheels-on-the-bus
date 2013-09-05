@@ -1,4 +1,7 @@
 require 'rake/testtask'
+require 'nokogiri'
+require 'open-uri'
+require 'csv'
 
 task :default => [:test]
 
@@ -13,8 +16,9 @@ task :validate => [:gen_stop_times, :gen_agency, :gen_stops, :gen_routes, :gen_t
 	system("cd transitfeed-1.2.12/ && python feedvalidator.py ../CSVs/")
 end
 
+desc 'Build the stop times csv'
 task :gen_stop_times => "CSVs" do
-
+	require './stop_times.rb'
 	wheels = {:routes => [], :stop_schedules => []}
 	doc = Nokogiri::HTML(open('http://bustracker.muni.org/InfoPoint/noscript.aspx'))
 	wheels[:routes] = doc.css('.routeNameListEntry').map {|l| {:id => l['routeid'], :name => l.content}}
@@ -36,18 +40,22 @@ task :gen_stop_times => "CSVs" do
 
 end
 
+desc 'Build the agency csv'
 task :gen_agency => "CSVs" do
 
 end
 
+desc 'Build the stops csv'
 task :gen_stops => "CSVs" do
 
 end
 
+desc 'Build the routes csv'
 task :gen_routes => "CSVs" do
 
 end
 
+desc 'Build the trips csv'
 task :gen_trips => "CSVs" do
 
 end

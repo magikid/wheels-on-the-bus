@@ -1,5 +1,9 @@
-task :default => [:test]
+require 'rake/testtask'
 
-task :test do
-	ruby parse_schedule_test.rb
+Rake::TestTask.new do |t|
+	t.test_files = FileList['test/*test.rb']
+	t.verbose = true
+	t.warning = true
 end
+
+task :default => [:test]

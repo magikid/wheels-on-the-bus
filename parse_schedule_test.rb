@@ -1,6 +1,6 @@
 require 'test/unit'
 require 'shoulda'
-require './parse_schedule.rb'
+require 'parse_schedule.rb'
 
 class WheelsTesting < Test::Unit::TestCase
 	context "Parser for bus schedules" do
@@ -39,7 +39,7 @@ class WheelsTesting < Test::Unit::TestCase
 
 		should "have Saturday schedule for route 13" do
 			assert_equal @bus.route(13,0,"Saturday").keys.length, 8
-			#assert_equal @bus.route(13,0,"Saturday")["DOWNTOWN TRANSIT CENTER"][0], "08:20:00"
+			assert_equal @bus.route(13,0,"Saturday")["DOWNTOWN TRANSIT CENTER"][0], "08:20:00"
 		end
 	end
 end

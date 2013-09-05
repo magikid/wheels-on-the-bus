@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'nokogiri'
-gem 'test/unit'
+gem 'test-unit'
 gem 'shoulda'
-gem 'open-uri'
 gem 'rake'

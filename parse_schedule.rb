@@ -67,8 +67,8 @@ class Busses
         }
       #Direction==1 means the right side of the schedule on the page.
       elsif direction==1
-        num1 = nil
-        num2 = nil
+        #num1 = nil
+        #num2 = nil
         (@mainstops[route_number].length/2).upto(@mainstops[route_number].length-1).each{ |i|
           #This grabs the time, forces UTF-8, gets rid of whitespace and junk, then formats it like 00:00:00
           stop_times[@mainstops[route_number][i]].push(schedule.css('table tr')[j].css('td')[i].text.force_encoding('UTF-8').gsub(/[[:space:]]+/, ' ').gsub(/\u2014/, '').rjust(5, '0') + ":00")

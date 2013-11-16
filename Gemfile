@@ -6,3 +6,6 @@ gem 'nokogiri'
 gem 'test-unit'
 gem 'shoulda'
 gem 'rake'
+group :development test
+	gem 'ruby-debug'
+end

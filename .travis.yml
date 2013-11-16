@@ -1,0 +1,13 @@
+language: ruby
+bundler_args: --without development
+rvm: 
+  - 2.0.0
+gemfile:
+  - Gemfile
+notifications:
+  recipients:
+    - chris@christopherjones.us
+branches:
+  only:
+    - master
+

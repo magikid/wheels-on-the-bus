@@ -8,5 +8,5 @@ require 'test/unit'
 require 'shoulda'
 
 #This contains the Busses class
-require './parse_schedule.rb'
+require './Busses.rb'
 

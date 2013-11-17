@@ -1,3 +1,5 @@
+require 'coveralls'
+Coveralls.wear!
 require 'test/unit'
 require 'shoulda'
 require './parse_schedule.rb'

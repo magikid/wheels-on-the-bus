@@ -1,16 +1,11 @@
-require "test/unit"
+require_relative 'test_helper'
 
-class TestGtfsClass < Test::Unit::TestCase
-  context "Testing for Gtfs class" do
+describe Gtfs do
+  before do
+    @gtfs = Gtfs.new
+  end
 
-    setup do
-      @gtfs = Gtfs.new
-    end
-
-    should "exist" do
-      assert_not_nil(@gtfs)
-    end
-
-
+  it "must exist" do
+    @gtfs.wont_be_nil
   end
 end

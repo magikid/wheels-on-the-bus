@@ -1,11 +1,6 @@
-#For coveralls testing
-#https://coveralls.io/docs/ruby
-require 'coveralls'
-Coveralls.wear!
-
 #Probably need the test frameworks
-require 'test/unit'
-require 'shoulda'
+require 'minitest/spec'
+require 'minitest/autorun'
 
 #This contains the Busses class
 require './Busses.rb'

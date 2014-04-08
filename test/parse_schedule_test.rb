@@ -1,6 +1,4 @@
-require 'test/unit'
-require 'shoulda'
-require './parse_schedule.rb'
+require_relative 'test_helper'
 
 class WheelsTesting < Test::Unit::TestCase
 	context "Parser for bus schedules" do

@@ -9,3 +9,6 @@ group :development do
   gem 'test-unit'
   gem 'shoulda'
 end
+
+gem 'coveralls', require: false
+

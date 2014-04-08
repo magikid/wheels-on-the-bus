@@ -29,13 +29,7 @@ class Busses
   def route(route_number, direction, part_of_week="Weekday")
     schedule = Nokogiri::HTML(open("http://www.muni.org/Departments/transit/PeopleMover/Route%202012%20Schedules%20HTML/#{"1".to_s.rjust(3, '0')}.htm"))
     
-    #This finds the breaks in the page that separates the weekday from Sat from Sun schedules
-    separating_rows = []
-    schedule.css('table tr').each_with_index{|r,index|
-      if r.css('td')[0].text == "Weekday" or r.css('td')[0].text == "Saturday" or r.css('td')[0].text == "Sunday"
-        separating_rows.push(index)
-      end
-    }
+    separating_rows = find_schedule_break_lines(schedule)
 
     #This makes sure that there are enough elements in the separating_rows array
     if separating_rows.length < 3
@@ -108,6 +102,18 @@ class Busses
   
   def all_routes
     return @routes
+  end
+
+  def find_schedule_break_lines(schedule)
+    #This finds the breaks in the page that separates the weekday from Sat from Sun schedules
+    separating_rows = []
+    schedule.css('table tr').each_with_index{|r,index|
+      if r.css('td')[0].text == "Weekday" or r.css('td')[0].text == "Saturday" or r.css('td')[0].text == "Sunday"
+        separating_rows.push(index)
+      end
+    }
+		
+		return separating_rows
   end
 
 end

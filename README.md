@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/codeforanchorage/wheels-on-the-bus.png?branch=master)](https://travis-ci.org/codeforanchorage/wheels-on-the-bus)
+[![Code Climate](https://codeclimate.com/github/codeforanchorage/wheels-on-the-bus.png)](https://codeclimate.com/github/codeforanchorage/wheels-on-the-bus)
+
 # THE WHEELS ON THE BUS
 
 Code that scrapes the transit data on the [Anchorage People Mover website](http://bustracker.muni.org/InfoPoint/) into [GTFS format](https://developers.google.com/transit/gtfs/reference) for upload to Google Transit.  You will need both python and ruby installed for this.  If the feedvalidator.py throws an error about Time Zones, ```run easy_install pytz```

@@ -1,3 +1,7 @@
+##
+# This class is used to generate the agency.txt file required
+# in the Google Transit Feed Spec.
+#
 class Agency
   attr_reader :name, :url, :timezone, :agency_id
   attr_accessor :language, :phone_number, :fare_url

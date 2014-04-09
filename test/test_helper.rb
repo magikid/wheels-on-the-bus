@@ -3,4 +3,4 @@ require 'minitest/autorun'
 
 #This contains the Busses class
 require './Gtfs.rb'
-require './Agency.rb'
+require './agency.rb'

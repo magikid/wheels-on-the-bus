@@ -1,4 +1,5 @@
-require_relative 'test_helper'
+require 'minitest/autorun'
+require './gtfs.rb'
 
 describe Gtfs do
   before do

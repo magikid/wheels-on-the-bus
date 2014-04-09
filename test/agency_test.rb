@@ -1,6 +1,7 @@
-require_relative 'test_helper'
+require 'minitest/autorun'
+require './agency.rb'
 
-describe Agency, 'testing Agency clas' do
+describe Agency, 'testing Agency class' do
   before do
     @a = Agency.new(
       'Anchorage People Mover',

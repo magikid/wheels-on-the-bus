@@ -31,7 +31,7 @@ describe Agency, "testing Agency clas" do
   end
 
   it "allows language in initialization" do
-    test_a = Agency.new(name="", url="", timezone="",
+    test_a = Agency.new("", "", "",
       language: "English"
     )
     test_a.language.must_be(:==,"English")

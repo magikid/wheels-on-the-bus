@@ -15,8 +15,7 @@ class Agency
     if agency_id.kind_of? Numeric
       @agency_id = agency_id
     else
-      raise ArgumentError
+      fail ArgumentError
     end
   end
-
 end

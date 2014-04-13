@@ -3,6 +3,7 @@
 # in the Google Transit Feed Spec.
 #
 class Stop
+  attr_accessor :stop_name, :stop_id, :stop_lat, :stop_lon
   def initialize(stop_id, stop_name, stop_lat, stop_lon)
     @stop_name = stop_name
     @stop_id = stop_id

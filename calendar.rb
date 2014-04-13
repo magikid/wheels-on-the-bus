@@ -1,3 +1,6 @@
+##
+# This class describes a calendar object for GTFS.
+#
 class Calendar
   attr_reader :service_id
 

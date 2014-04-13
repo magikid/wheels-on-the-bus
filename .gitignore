@@ -29,3 +29,6 @@ doc/
 Session.vim
 .netrwhist
 *~
+
+### Sublime Test ###
+*.sublime-workspace

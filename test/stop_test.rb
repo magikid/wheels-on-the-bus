@@ -3,7 +3,7 @@ require './stop.rb'
 
 describe Stop, 'testing Stop class' do
   before do
-    @stop = Stop.new(0, "", 0, 0)
+    @stop = Stop.new(0, '', 0, 0)
   end
 
   it 'returns a stop object' do
@@ -12,7 +12,7 @@ describe Stop, 'testing Stop class' do
 
   it 'must accept changes to args' do
     @stop.stop_name = 'Hi'
-    @stop.stop_name.must_be(:==,'Hi')
+    @stop.stop_name.must_be(:==, 'Hi')
     @stop.stop_id = 1
     @stop.stop_id.must_be(:==, 1)
     @stop.stop_lat = '94.123'

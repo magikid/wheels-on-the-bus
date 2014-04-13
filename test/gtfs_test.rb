@@ -6,7 +6,7 @@ describe Gtfs do
     @gtfs = Gtfs.new
   end
 
-  it "must exist" do
+  it 'must exist' do
     @gtfs.wont_be_nil
   end
 end
